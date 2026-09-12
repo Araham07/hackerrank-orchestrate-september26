@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Project artifacts
+# log.txt is the chat transcript - per HANDOFF.md it is uploaded at
+# submission time and never committed to the repository.
+log.txt
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
