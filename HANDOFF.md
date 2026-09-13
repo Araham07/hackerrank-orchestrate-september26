@@ -251,6 +251,25 @@ Audit: INTEGRITY OK; ledger 302 calls, all zero-cost local OCR/heuristic.
       the 25 samples without fitting per-sample constants (= hardcoding
       by another name). Do NOT re-run these searches expecting a
       different answer; see tests/model_fitter_out.txt.
+  * 2026-09-13 (Buffy #3) ROUNDS 2-3 - ALL NEGATIVE, case closed:
+    - tests/model_fitter2.py: 1,080 combos (9 estimators x 6 timings x
+      5 scopes x 4 salary modes x pending-credit on/off) scored on BOTH
+      the implied trough AND the GT earliest date -> 0/21 exact troughs;
+      best earliest-date match 7/20 (no model comes close).
+    - tests/model_probe3.py: calendar-month-anchored sums (MTD, last
+      month, 2/3-month back, sums) +/- k*salary -> 0 hits; alternative
+      trough definitions on our own path (salary-day min, month-end
+      min) -> 0 hits. Global blended daily-rate x W days - k*salary ->
+      0/21. Salary-day-only earliest rule REJECTED by data (GT dates
+      fall on days 03/04/05/12/23 too).
+    - All 7 earliest-date mismatches (r04/05/06/07/11/13/17) are
+      path-shape artifacts of the GT spend model (GT waits for/lands on
+      salary days because its trough differs), NOT independent rule
+      violations -> both weak fields are blocked on the same unknown.
+    - FINAL: the GT generator likely simulates future expense dates/
+      amounts from its own hidden schedule; these are not recoverable
+      from the 25 output rows. Targets (amount 20+, earliest 20+) are
+      NOT reachable without hardcoding. Stop investigating.
 
 - [MEDIUM] request_13: we emit spending changes for an affordable_later
   sample that expects none (wait ranked first there, ours ranked full with

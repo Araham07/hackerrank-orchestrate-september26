@@ -1,0 +1,17 @@
+
+TOP 15 by joint constraint satisfaction:
+  peUp    wk_dh     varOnly   sal=sched pc=yes both=0 c1(trough)=0 c2(earliest)=7
+  peUp    wk_dh     varOnly   sal=sched pc=no  both=0 c1(trough)=0 c2(earliest)=7
+  peUp    wk_dh     varOnly   sal=proj  pc=yes both=0 c1(trough)=0 c2(earliest)=7
+  peUp    wk_dh     varOnly   sal=proj  pc=no  both=0 c1(trough)=0 c2(earliest)=7
+  peUp    wk_dh     varOnly   sal=none  pc=yes both=0 c1(trough)=0 c2(earliest)=7
+  peUp    wk_dh     varOnly   sal=none  pc=no  both=0 c1(trough)=0 c2(earliest)=7
+  peUp    wk_dh     varOnly   sal=both  pc=yes both=0 c1(trough)=0 c2(earliest)=7
+  peUp    wk_dh     varOnly   sal=both  pc=no  both=0 c1(trough)=0 c2(earliest)=7
+  peUp    wk_dh     sVar      sal=sched pc=yes both=0 c1(trough)=0 c2(earliest)=7
+  peUp    wk_dh     sVar      sal=sched pc=no  both=0 c1(trough)=0 c2(earliest)=7
+  peUp    wk_dh     sVar      sal=proj  pc=yes both=0 c1(trough)=0 c2(earliest)=7
+  peUp    wk_dh     sVar      sal=proj  pc=no  both=0 c1(trough)=0 c2(earliest)=7
+  peUp    wk_dh     sVar      sal=none  pc=yes both=0 c1(trough)=0 c2(earliest)=7
+  peUp    wk_dh     sVar      sal=none  pc=no  both=0 c1(trough)=0 c2(earliest)=7
+  peUp    wk_dh     sVar      sal=both  pc=yes both=0 c1(trough)=0 c2(earliest)=7
