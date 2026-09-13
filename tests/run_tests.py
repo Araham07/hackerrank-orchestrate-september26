@@ -21,6 +21,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 MODULES = [
     "tests.test_phases_1_3",
     "tests.test_phases_4_7",
+    "tests.test_spending_changes",
 ]
 
 

@@ -54,7 +54,7 @@ Deterministic LLM+Python pipeline; every output number traces to pure Python
 python code/main.py             # full run -> output.csv (repo root) + validation
 python code/main.py --audit     # dataset integrity audit
 python code/main.py --limit 5   # debug first N requests
-python tests/run_tests.py       # 26 unit tests (stdlib runner)
+python tests/run_tests.py       # 29 unit tests (stdlib runner)
 python tests/sample_scorecard.py  # score against 25 solved samples -> tests/sample_scorecard.md
 ```
 
@@ -66,9 +66,10 @@ each with an eligibility trail) -> 90-day deterministic forecast ->
 spec-order ranking -> output row + grounded explanation ->
 `code/validate/output_validator.py` hard checks (zero violations).
 
-Sample scorecard (25 solved examples): status 18/25, method 20/25,
-plan 19/25, earliest 16/25, changes 21/25, amount 3/25 — details and known
-gaps in `HANDOFF.md` §8. Token usage: `evaluation/usage_report.md`
+Sample scorecard (25 solved examples): status 20/25, method 21/25,
+plan 20/25, earliest 18/25, changes 21/25, amount 4/25 — details, known
+gaps, and the exhaustive negative results on the amount model are in
+`HANDOFF.md` §8. Token usage: `evaluation/usage_report.md`
 (302 local OCR calls, zero-cost deterministic run; no paid API required).
 
 ## Important File Locations

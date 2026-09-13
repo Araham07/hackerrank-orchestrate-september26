@@ -253,8 +253,16 @@ def generate_candidates(
             elif (cat in stoppable and f == "reducible_or_stoppable"
                   and (floor is None or floor >= cur)):
                 actions.append(("stop", cat, None, cur))
-        # Greedy by monthly saving, descending.
-        actions.sort(key=lambda a: (-a[3], a[1]))
+        # Ground-truth accumulation order (validated on request_21/11/06):
+        # candidates are tried in EVENT-ID order (earliest event first), not
+        # by largest monthly saving; for reducible_or_stoppable events a
+        # reduce_to floor is preferred over a stop. Changes accumulate
+        # greedily (max 3) and stop as soon as full payment is safe.
+        def _eid_key(eid: str):
+            digits = "".join(ch for ch in eid if ch.isdigit())
+            return (int(digits) if digits else 10**12, eid)
+
+        actions.sort(key=lambda a: _eid_key(rep_ids.get(a[1], a[1])))
         chosen: list[tuple[str, str, float | None, float]] = []
         best_plan: CandidatePlan | None = None
         for act in actions:

@@ -226,39 +226,51 @@ Audit: INTEGRITY OK; ledger 302 calls, all zero-cost local OCR/heuristic.
   * Implied trough = keep + amount exactly on 21 samples -> the formula is
     min(path) - keep under THEIR projection model; the gap is the model,
     not the semantics.
-  * Their troughs are LOWER than ours -> they project MORE outflow and/or
-    LESS income. Brute-force over category subsets x salary-month counts
-    (tests/trough_solver.py) fits only 5/21 exactly: no subset of our
-    projected categories reproduces their troughs. Estimator variants
-    (median/mean/max/min month total, per-event, per-event-mean, nPm)
-    each fit a few samples; none dominates (tests/trough_probe.py).
-  * CALIBRATED LEVERS APPLIED (2026-09-13 session, measured via
-    tests/matrix_probe.py, unit tests green before/after):
-    a) salary cadence projects from >= 1 month of settled history
-       (was gated on >= 2 months like expenses): +5 fields (97 -> 102/150).
-       Biggest single lever; under-counted confirmed income.
-    b) double-count guard removed (scheduled row no longer suppresses the
-       cadence projection of its category in the same month): +2 fields
-       (102 -> 104/150). Ground truth double-counts.
-    c) per-event median = upper-middle element (sorted[n//2], no even-n
-       averaging): +0 alone but part of the winning config.
-    All three push projected outflow UP, the direction ground truth sits.
-  * Measured and rejected: single-month coverage for non-salary categories
-    (96/150), strength-aware hybrid estimators (93/150), max-month-total
-    hybrid (83/150). nPm-with-upper-middle remains the best estimator.
-  * Salary-cap experiments (0-4 credits) changed nothing on the scorecard;
-    knob exists (forecast.SALARY_MONTHS_CAP) but keep it None.
-  * Ground truth wait/partial second payments land on the 15th in many
-    samples = salary day, consistent with salary counting, so the residual
-    amount gap is elsewhere (unusual/one-time spends? larger variable
-    estimates? unpaid pending debits?).
-  Remaining ideas: conservative non-recurring spending reserve; per-request
-  fitting is NOT viable (no labels at eval time); expect diminishing returns.
+  * 2026-09-13 (Buffy #2) EXHAUSTIVE MODEL SEARCH - all negative:
+    - tests/model_fitter.py: 147-model grid (7 amount estimators x 6
+      timing schedules x 3 category scopes) -> ZERO exact trough fits
+      across the 21 uncapped samples (all 4 capped samples satisfy the
+      lower bound under aggressive models; the capped set is exactly the
+      set where ours already equals requested: r01/r09/r12/r16).
+    - tests/outflow_probe.py: whole-outflow formulas (any single
+      historical month total, trailing 1..120-day actual outflow, minus
+      k salaries, med/mean/min/max month totals minus k salaries) ->
+      ZERO exact fits on all 21.
+    - tests/deduction_solver.py: bitset subset-sum over ~200 blocks
+      (category variants x month counts x ceil/round, raw event amounts,
+      recent totals, salary/pending credits) -> every D reachable, i.e.
+      NON-IDENTIFYING; the exact GT projection is not recoverable by
+      combinatorial fitting either.
+    - Fractional cents analysis: D has nonzero cents on r05/r06/r13/r20/
+      r23 (e.g. .10, .12, .05) -> their model uses per-event amounts and
+      exact dates, not rounded monthly totals; r13/r15 expected values
+      equal balance - keep - MEAN of per-event spend within .01 ->
+      continuous spend estimate, likely daily-rate x elapsed days.
+    - CONCLUSION: reproducing their troughs requires a different (likely
+      daily-rate) spend model whose exact form is not identifiable from
+      the 25 samples without fitting per-sample constants (= hardcoding
+      by another name). Do NOT re-run these searches expecting a
+      different answer; see tests/model_fitter_out.txt.
 
 - [MEDIUM] request_13: we emit spending changes for an affordable_later
   sample that expects none (wait ranked first there, ours ranked full with
   changes after a partial-payment regression); revisit wait vs
   full-with-changes ranking if any further outflow-model change lands.
+
+- [MEDIUM] request_21 change-count is coupled to the projection gap: under
+  our (shallower) trough one change (stop:event_1815) already restores
+  safety, so we emit 1 change where GT emits 2 (its deeper projected
+  trough needs the streaming reduce too). We verified headroom with/without
+  each change (1570.05 / 1581.05 / 1604.55): forcing a second change when
+  one already clears the minimum would be an unsupported assumption.
+  Fixing the outflow model would likely fix this field automatically.
+
+- [FIXED 2026-09-13 Buffy #2] spending-change candidate ORDER: GT tries
+  candidates in EVENT-ID order (earliest event first), preferring
+  reduce-to-floor for reducible_or_stoppable rows; previous code sorted
+  by largest monthly saving (picked dining over the subscriptions on
+  request_21). Implemented in payment_plans.generate_candidates; covered
+  by tests/test_spending_changes.py.
 
 - [MEDIUM] python code/main.py does NOT refresh dataset/output.csv (the
   template-location deliverable copy); copy output.csv there manually
@@ -377,6 +389,20 @@ still need >= 2. No double-count guard between scheduled rows and
 cadence projection. Knobs live in code/finance/normalizer.py and
 code/finance/forecast.py; harnesses: tests/calibration_sweep.py,
 tests/recurrence_probe.py, tests/guard_probe.py, tests/matrix_probe.py.
+A 147-model grid (tests/model_fitter.py) later confirmed no category-
+monthly model reproduces the GT troughs exactly - see section 8 before
+proposing new estimators.
+```
+
+## Spending-change candidate order (2026-09-13 Buffy #2)
+
+```text
+Candidates accumulate in EVENT-ID order (earliest first; numeric id
+parse), preferring reduce-to-floor for reducible_or_stoppable rows;
+search stops as soon as full payment is safe (max 3 changes). Evidence:
+request_21 (stop event_1815 then reduce event_1816), request_06 (stop
+only), request_11 (reduce dining to its floor). Covered by
+tests/test_spending_changes.py (3 tests, 29 total in run_tests.py).
 ```
 
 ## Ranking (spec order, implemented)
@@ -1009,6 +1035,63 @@ BLOCKERS:
 The newest summary must always appear at the top of this section.
 
 ---
+
+```text
+DATE: 2026-09-13
+AGENT: Buffy #2 (Freebuff, z-ai/glm-5.3-flash)
+PHASE: 10 (accuracy hardening; scorecard unchanged at 104/150)
+
+COMPLETED:
+- Built per-sample diagnostic (tests/amount_diagnostic.py -> .txt):
+  all 4 matching amount samples are exactly the capped-at-requested
+  cases; expected values in non-capped cases are ALWAYS below naive
+  headroom; GT earliest dates cluster on salary days.
+- Exhaustive general-model search, all negative (do not re-run):
+  * tests/model_fitter.py: 147 models (7 estimators x 6 timings x 3
+    scopes) -> 0/21 exact trough fits
+  * tests/outflow_probe.py: month-total / trailing-window / salary-
+    offset whole-outflow formulas -> 0/21 exact fits
+  * tests/deduction_solver.py: bitset subset-sum (~200 blocks/sample)
+    -> every D reachable, hence non-identifying
+  * Fractional-cents analysis -> GT uses a continuous (likely daily-
+    rate) spend model; exact form not identifiable from 25 samples.
+- FIXED (general): spending-change candidates now accumulate in
+  EVENT-ID order with reduce-to-floor preference (was largest-saving
+  first). Evidence: request_21/06/11. First change now matches GT on
+  request_21; change COUNT stays coupled to the projection gap.
+- Added tests/test_spending_changes.py (3 regression tests; 29 total).
+- Full run re-executed: 250/250, 0 errors, ZERO violations;
+  dataset/output.csv refreshed; code.zip rebuilt (79 files, secret-
+  scan clean); HANDOFF/README updated.
+
+FILES CHANGED:
+- code/finance/payment_plans.py (event-id ordering)
+- tests/{amount_diagnostic,model_fitter,outflow_probe,deduction_solver,
+  event_dump,test_spending_changes}.py (new harnesses/tests)
+- tests/run_tests.py (+1 module), tests/model_fitter_out.txt
+- output.csv, dataset/output.csv, evaluation/usage_report.md, code.zip
+- HANDOFF.md, README.md, log.txt
+
+TESTS:
+- python tests/run_tests.py -> passed=29 failed=0 errors=0
+- python tests/sample_scorecard.py -> status 20 method 21 amount 4
+  plan 20 earliest 18 changes 21 (104/150, unchanged)
+- python code/main.py -> 250/250 rows, 0 errors, zero violations
+
+KNOWN ISSUES:
+- amount_safe_to_pay 4/25: GT projection model not identifiable
+  (see section 8's exhaustive negative results). All structural
+  evidence says semantics are right; the model is the gap.
+- request_21 change-count coupled to the projection gap (see section 8).
+
+NEXT STEP:
+- If the hidden set mirrors the sample generator, the daily-rate spend
+  model hypothesis (per-event amounts, elapsed-day proration) is the
+  only untested direction left; anything beyond that requires labels.
+
+BLOCKERS:
+- None
+```
 
 ```text
 DATE: 2026-09-13

@@ -1,0 +1,445 @@
+====================================================================================================
+request_01  type=purchase  requested=25256.0  date=2024-03-03  deadline=2024-03-20  partial=True
+  balance=58481.10  keep=18000.00  naive_headroom=40481.10
+  ours=25256.00  expected=25256.0  diff=+0.00
+  ours_trough=50578.79  implied_trough=43256.00  ours-implied=+7322.79
+  sched 2024-03-05 -      567.60 transport [pending]
+  sched 2024-03-15 +    23320.00 salary [scheduled]
+  salary cadence: monthly=12826.00 day=15 strength=variable months=1 credits_in_window=3
+  cadence table (cat | monthTotal med/mean | perEvent med/mean | day | strength | events):
+    debt_repayment              3487.00      3487.00    3487.00    3487.00 d11 fixed     5m/5
+    delivery_membership          306.90       306.90     306.90     306.90 d13 fixed     5m/5
+    dining                      2239.60      2359.91    1070.17    1089.19 d17 variable  6m/6
+    education                   1821.60      1821.60    1821.60    1821.60 d 8 fixed     5m/5
+    groceries                   3150.45      2916.22     765.64     785.14 d15 variable  7m/7
+    music_subscription           235.40       235.40     235.40     235.40 d11 fixed     5m/5
+    rent                        5148.00      5148.00    5148.00    5148.00 d 2 fixed     6m/6
+    shopping                     816.20       699.60     816.20     699.60 d25 variable  2m/2
+    transport                   1781.30      1631.30     428.92     439.20 d16 variable  7m/7
+    utilities                   1483.81      1507.80    1483.81    1507.80 d 6 fixed     5m/5
+  hypotheses: H1(medTot+sal)=17857.87  H2(perEvent)=27671.11  H3(meanTot+sal)=18546.93  H5(naive)=40481.10  |  expected=25256.00
+====================================================================================================
+request_02  type=travel  requested=46018000.0  date=2025-08-05  deadline=2025-10-10  partial=False
+  balance=60383889.20  keep=29158400.00  naive_headroom=31225489.20
+  ours=21412210.25  expected=17229139.2  diff=+4183071.05
+  ours_trough=50570610.25  implied_trough=46387539.20  ours-implied=+4183071.05
+  sched 2025-08-08 -  1651100.00 shopping [pending]
+  sched 2025-08-15 + 42750000.00 salary [scheduled]
+  salary cadence: monthly=33345000.00 day=15 strength=fixed months=5 credits_in_window=3
+  cadence table (cat | monthTotal med/mean | perEvent med/mean | day | strength | events):
+    cloud_storage             369550.00    369550.00  369550.00  369550.00 d13 fixed     5m/5
+    dining                   2037638.84   1625729.18 1101709.76 1083819.45 d16 variable  6m/6
+    education                3040000.00   3040000.00 3040000.00 3040000.00 d 9 fixed     5m/5
+    entertainment            1289187.40   1298171.69 1289187.40 1298171.69 d15 fixed     5m/5
+    groceries                6460061.45   5726643.91 1920485.70 1908881.30 d20 variable  6m/6
+    healthcare               1538498.10   1538993.97 1538498.10 1538993.97 d11 fixed     5m/5
+    housing                  3534000.00   3534000.00 3534000.00 3534000.00 d 4 fixed     6m/6
+    insurance                1132400.00   1132400.00 1132400.00 1132400.00 d 8 fixed     5m/5
+    transport                2638955.90   2625930.55 1294200.86 1211967.94 d15 variable  6m/6
+    utilities                2081730.85   2035830.50 2081730.85 2035830.50 d 7 fixed     5m/5
+  hypotheses: H1(medTot+sal)=23063310.25  H2(perEvent)=23063310.25  H3(meanTot+sal)=23108714.73  H5(naive)=31225489.20  |  expected=17229139.20
+====================================================================================================
+request_03  type=education  requested=5491000.0  date=2019-09-03  deadline=2019-11-15  partial=False
+  balance=5810300.00  keep=2668700.00  naive_headroom=3141600.00
+  ours=1083930.62  expected=873000.0  diff=+210930.62
+  ours_trough=3752630.62  implied_trough=3541700.00  ours-implied=+210930.62
+  sched 2019-09-07 -    95000.00 healthcare [pending]
+  salary cadence: monthly=4365000.00 day=15 strength=fixed months=5 credits_in_window=3
+  cadence table (cat | monthTotal med/mean | perEvent med/mean | day | strength | events):
+    cloud_storage              20900.00     20900.00   20900.00   20900.00 d14 fixed     5m/5
+    dining                    258869.24    224868.98  146236.28  149912.65 d13 variable  6m/6
+    groceries                 662524.05    579494.36  188355.72  193164.79 d20 variable  6m/6
+    rent                     1140000.00   1140000.00 1140000.00 1140000.00 d 4 fixed     5m/5
+    shopping                  173930.81    168697.75  173930.81  168697.75 d14 fixed     5m/5
+    streaming                 117800.00    117800.00  117800.00  117800.00 d11 fixed     5m/5
+    transport                 186500.85    136561.60   83523.33   91041.06 d15 variable  6m/6
+    utilities                 290684.15    284387.81  290684.15  284387.81 d 8 fixed     5m/5
+  hypotheses: H1(medTot+sal)=1139415.80  H2(perEvent)=1252048.76  H3(meanTot+sal)=1184945.46  H5(naive)=3141600.00  |  expected=873000.00
+====================================================================================================
+request_04  type=family_transfer  requested=12693000.0  date=2024-06-04  deadline=2024-06-19  partial=True
+  balance=52206950.00  keep=30686600.00  naive_headroom=21520350.00
+  ours=12693000.00  expected=8401800.0  diff=+4291200.00
+  ours_trough=45385127.35  implied_trough=39088400.00  ours-implied=+6296727.35
+  sched 2024-06-11 -  1704300.00 education [scheduled]
+  salary cadence: monthly=38190000.00 day=15 strength=fixed months=5 credits_in_window=3
+  cadence table (cat | monthTotal med/mean | perEvent med/mean | day | strength | events):
+    delivery_membership       377150.00    377150.00  377150.00  377150.00 d12 fixed     5m/5
+    dining                   3951483.29   3788709.32 1839656.04 1748635.07 d15 variable  6m/6
+    entertainment            1375854.05   1385201.35 1375854.05 1385201.35 d13 fixed     5m/5
+    groceries                6147209.20   5569476.62 1482897.31 1499474.48 d16 variable  7m/7
+    gym                      1027900.00   1027900.00 1027900.00 1027900.00 d 9 fixed     5m/5
+    music_subscription        332500.00    332500.00  332500.00  332500.00 d10 fixed     5m/5
+    rent                    12293000.00  12293000.00 12293000.00 12293000.00 d 1 fixed     6m/6
+    transport                3398857.48   3092170.40  853091.62  832507.41 d17 variable  7m/7
+    utilities                2004118.60   2003395.62 2004118.60 2003395.62 d 5 fixed     5m/5
+  hypotheses: H1(medTot+sal)=16402827.35  H2(perEvent)=16402827.35  H3(meanTot+sal)=16394203.03  H5(naive)=21520350.00  |  expected=8401800.00
+====================================================================================================
+request_05  type=debt_repayment  requested=15488.0  date=2025-11-06  deadline=2026-01-12  partial=False
+  balance=46475.10  keep=13100.00  naive_headroom=33375.10
+  ours=15488.00  expected=737.0  diff=+14751.00
+  ours_trough=42721.35  implied_trough=13837.00  ours-implied=+28884.35
+  salary cadence: monthly=14740.00 day=15 strength=fixed months=5 credits_in_window=3
+  cadence table (cat | monthTotal med/mean | perEvent med/mean | day | strength | events):
+    cloud_storage                113.30       113.30     113.30     113.30 d12 fixed     5m/5
+    debt_repayment               968.00       968.00     968.00     968.00 d11 fixed     5m/5
+    family_support               840.40       840.40     840.40     840.40 d13 fixed     5m/5
+    groceries                   2989.31      2680.62     762.65     721.70 d16 variable  7m/7
+    healthcare                   721.44       699.01     721.44     699.01 d10 fixed     5m/5
+    rent                        4972.00      4972.00    4972.00    4972.00 d 2 fixed     6m/6
+    shopping                     404.24       397.85     404.24     397.85 d12 fixed     5m/5
+    transport                    913.57       897.75     411.47     414.34 d15 variable  6m/6
+    utilities                    706.37       686.71     706.37     686.71 d 6 fixed     5m/5
+  hypotheses: H1(medTot+sal)=29621.35  H2(perEvent)=29621.35  H3(meanTot+sal)=29669.84  H5(naive)=33375.10  |  expected=737.00
+====================================================================================================
+request_06  type=investment  requested=620.4  date=2026-01-03  deadline=2026-01-14  partial=False
+  balance=1942.40  keep=800.00  naive_headroom=1142.40
+  ours=620.40  expected=603.3  diff=+17.10
+  ours_trough=1541.71  implied_trough=1403.30  ours-implied=+138.41
+  salary cadence: monthly=1441.00 day=15 strength=fixed months=5 credits_in_window=3
+  cadence table (cat | monthTotal med/mean | perEvent med/mean | day | strength | events):
+    cloud_storage                  5.00         5.00       5.00       5.00 d13 fixed     5m/5
+    dining                       192.15       191.16      46.84      45.88 d17 variable  6m/6
+    entertainment                 35.10        35.01      35.10      35.01 d15 fixed     5m/5
+    groceries                    130.63       135.23      48.32      45.08 d19 variable  6m/6
+    insurance                     26.00        26.00      26.00      26.00 d 8 fixed     5m/5
+    rent                         254.10       254.10     254.10     254.10 d 3 fixed     5m/5
+    shopping                      39.88        41.00      39.88      41.00 d13 fixed     5m/5
+    streaming                     19.00        19.00      19.00      19.00 d10 fixed     5m/5
+    transport                    161.30       157.36      27.80      26.98 d17 variable  6m/6
+    utilities                     56.71        55.70      56.71      55.70 d 7 fixed     5m/5
+  hypotheses: H1(medTot+sal)=741.71  H2(perEvent)=741.71  H3(meanTot+sal)=741.60  H5(naive)=1142.40  |  expected=603.30
+====================================================================================================
+request_07  type=housing  requested=197400.0  date=2024-09-05  deadline=2024-11-14  partial=True
+  balance=218945.56  keep=93000.00  naive_headroom=125945.56
+  ours=92770.02  expected=87170.56  diff=+5599.46
+  ours_trough=185770.02  implied_trough=180170.56  ours-implied=+5599.46
+  salary cadence: monthly=149000.00 day=15 strength=fixed months=5 credits_in_window=3
+  cadence table (cat | monthTotal med/mean | perEvent med/mean | day | strength | events):
+    debt_repayment             15650.00     15650.00   15650.00   15650.00 d13 fixed     5m/5
+    dining                     10344.11      8890.97    6313.91    5927.31 d13 variable  6m/6
+    groceries                  15610.49     15419.00    7280.22    7116.46 d15 variable  6m/6
+    music_subscription          1005.00      1005.00    1005.00    1005.00 d13 fixed     5m/5
+    rent                       34200.00     34200.00   34200.00   34200.00 d 4 fixed     6m/6
+    transport                   6252.57      4830.20    3145.62    3220.13 d17 variable  6m/6
+    utilities                   7049.68      6789.44    7049.68    6789.44 d 8 fixed     5m/5
+  hypotheses: H1(medTot+sal)=91896.77  H2(perEvent)=95926.97  H3(meanTot+sal)=93610.14  H5(naive)=125945.56  |  expected=87170.56
+====================================================================================================
+request_08  type=emergency_expense  requested=996.6  date=2025-02-07  deadline=2025-04-15  partial=False
+  balance=1536.57  keep=800.00  naive_headroom=736.57
+  ours=432.57  expected=284.57  diff=+148.00
+  ours_trough=1232.57  implied_trough=1084.57  ours-implied=+148.00
+  salary cadence: monthly=1422.85 day=15 strength=fixed months=5 credits_in_window=3
+  cadence table (cat | monthTotal med/mean | perEvent med/mean | day | strength | events):
+    debt_repayment               177.00       177.00     177.00     177.00 d10 fixed     5m/5
+    delivery_membership           24.00        24.00      24.00      24.00 d12 fixed     5m/5
+    dining                       106.91       110.16      49.45      50.84 d16 variable  6m/6
+    education                     89.00        89.00      89.00      89.00 d 7 fixed     5m/5
+    groceries                    221.34       219.30      55.02      59.04 d17 variable  7m/7
+    music_subscription            14.00        14.00      14.00      14.00 d10 fixed     5m/5
+    rent                         467.50       467.50     467.50     467.50 d 1 fixed     6m/6
+    transport                    151.83       139.24      37.62      37.49 d16 variable  7m/7
+    utilities                     80.55        76.83      80.55      76.83 d 5 fixed     6m/6
+  hypotheses: H1(medTot+sal)=432.57  H2(perEvent)=432.57  H3(meanTot+sal)=432.57  H5(naive)=736.57  |  expected=284.57
+====================================================================================================
+request_09  type=other  requested=166.61  date=2026-07-04  deadline=2026-07-23  partial=True
+  balance=2231.10  keep=600.00  naive_headroom=1631.10
+  ours=166.61  expected=166.61  diff=+0.00
+  ours_trough=1806.38  implied_trough=766.61  ours-implied=+1039.77
+  salary cadence: monthly=506.35 day=20 strength=variable months=5 credits_in_window=3
+  cadence table (cat | monthTotal med/mean | perEvent med/mean | day | strength | events):
+    cloud_storage                  5.00         5.00       5.00       5.00 d12 fixed     5m/5
+    dining                        51.83        45.45      29.97      30.30 d16 variable  6m/6
+    groceries                    135.05       133.70      47.44      44.57 d18 variable  6m/6
+    rent                         211.20       211.20     211.20     211.20 d 2 fixed     6m/6
+    shopping                      25.52        26.63      25.52      26.63 d12 fixed     5m/5
+    streaming                     20.00        20.00      20.00      20.00 d 9 fixed     5m/5
+    transport                     35.03        36.17      24.59      24.11 d15 variable  6m/6
+    utilities                     63.66        64.36      63.66      64.36 d 6 fixed     5m/5
+  hypotheses: H1(medTot+sal)=1213.13  H2(perEvent)=1414.92  H3(meanTot+sal)=1227.46  H5(naive)=1631.10  |  expected=166.61
+====================================================================================================
+request_10  type=purchase  requested=266700.0  date=2024-12-06  deadline=2025-02-10  partial=True
+  balance=750155.00  keep=225400.00  naive_headroom=524755.00
+  ours=102771.62  expected=12700.0  diff=+90071.62
+  ours_trough=328171.62  implied_trough=238100.00  ours-implied=+90071.62
+  salary cadence: monthly=65488.36 day=11 strength=variable months=6 credits_in_window=3
+  cadence table (cat | monthTotal med/mean | perEvent med/mean | day | strength | events):
+    delivery_membership         1895.00      1895.00    1895.00    1895.00 d14 fixed     5m/5
+    dining                     19020.60     19148.50    8813.96    8837.77 d16 variable  6m/6
+    entertainment               4700.56      4645.19    4700.56    4645.19 d15 fixed     5m/5
+    groceries                  43133.92     40025.41   10839.89   10776.07 d17 variable  7m/7
+    gym                         4860.00      4860.00    4860.00    4860.00 d11 fixed     5m/5
+    music_subscription          2800.00      2800.00    2800.00    2800.00 d12 fixed     5m/5
+    rent                       69100.00     69100.00   69100.00   69100.00 d 3 fixed     6m/6
+    transport                  25834.89     24928.29    5776.08    5982.79 d16 variable  6m/6
+    utilities                  17538.11     17103.95   17538.11   17103.95 d 7 fixed     5m/5
+  hypotheses: H1(medTot+sal)=154570.84  H2(perEvent)=342249.28  H3(meanTot+sal)=167701.05  H5(naive)=524755.00  |  expected=12700.00
+====================================================================================================
+request_11  type=travel  requested=13110000.0  date=2025-05-03  deadline=2025-06-12  partial=False
+  balance=63531795.00  keep=34140600.00  naive_headroom=29391195.00
+  ours=4492087.01  expected=12510645.0  diff=-8018557.99
+  ours_trough=38632687.01  implied_trough=46651245.00  ours-implied=-8018557.99
+  salary cadence: monthly=23256000.00 day=24 strength=variable months=5 credits_in_window=3
+  cadence table (cat | monthTotal med/mean | perEvent med/mean | day | strength | events):
+    cloud_storage             168150.00    168150.00  168150.00  168150.00 d14 fixed     5m/5
+    dining                   2503855.93   2025033.82 1365643.70 1350022.55 d18 variable  6m/6
+    education                2544100.00   2544100.00 2544100.00 2544100.00 d10 fixed     5m/5
+    entertainment            1649906.50   1600926.75 1649906.50 1600926.75 d16 fixed     5m/5
+    groceries                4259027.13   4263999.49 1406401.86 1421333.16 d19 variable  6m/6
+    healthcare               2973572.96   2943993.42 2973572.96 2943993.42 d12 fixed     5m/5
+    housing                  2954500.00   2954500.00 2954500.00 2954500.00 d 5 fixed     5m/5
+    insurance                1881000.00   1881000.00 1881000.00 1881000.00 d 9 fixed     5m/5
+    transport                2348784.98   2357363.97 1185524.72 1088014.14 d16 variable  6m/6
+    utilities                2796165.18   2720215.11 2796165.18 2720215.11 d 8 fixed     5m/5
+  hypotheses: H1(medTot+sal)=3666006.96  H2(perEvent)=10466230.08  H3(meanTot+sal)=5525347.33  H5(naive)=29391195.00  |  expected=12510645.00
+====================================================================================================
+request_12  type=education  requested=65164.0  date=2026-04-05  deadline=2026-06-20  partial=False
+  balance=193089.89  keep=43200.00  naive_headroom=149889.89
+  ours=65164.00  expected=65164.0  diff=+0.00
+  ours_trough=180737.25  implied_trough=108364.00  ours-implied=+72373.25
+  salary cadence: monthly=55846.64 day=15 strength=fixed months=3 credits_in_window=3
+  cadence table (cat | monthTotal med/mean | perEvent med/mean | day | strength | events):
+    cloud_storage                447.70       447.70     447.70     447.70 d11 fixed     5m/5
+    dining                      4033.27      3386.40    2344.45    2257.60 d13 variable  6m/6
+    groceries                   6721.90      6404.66    2333.56    2134.89 d18 variable  6m/6
+    rent                       11792.00     11792.00   11792.00   11792.00 d 1 fixed     6m/6
+    shopping                    1243.49      1255.89    1243.49    1255.89 d11 fixed     5m/5
+    streaming                   1504.80      1504.80    1504.80    1504.80 d 8 fixed     5m/5
+    transport                   2700.63      2154.34    1355.85    1436.23 d13 variable  6m/6
+    utilities                   3606.20      3509.72    3606.20    3509.72 d 5 fixed     5m/5
+  hypotheses: H1(medTot+sal)=136353.80  H2(perEvent)=139387.40  H3(meanTot+sal)=137631.04  H5(naive)=149889.89  |  expected=65164.00
+====================================================================================================
+request_13  type=family_transfer  requested=941.6  date=2024-03-07  deadline=2024-05-15  partial=True
+  balance=2789.52  keep=1300.00  naive_headroom=1489.52
+  ours=851.04  expected=433.4  diff=+417.64
+  ours_trough=2151.04  implied_trough=1733.40  ours-implied=+417.64
+  sched 2024-03-15 +     1343.54 salary [scheduled]
+  salary cadence: monthly=1343.54 day=15 strength=variable months=5 credits_in_window=3
+  cadence table (cat | monthTotal med/mean | perEvent med/mean | day | strength | events):
+    delivery_membership           21.00        21.00      21.00      21.00 d13 fixed     5m/5
+    dining                       142.80       139.26      62.71      64.27 d15 variable  6m/6
+    entertainment                 31.80        32.96      31.80      32.96 d14 fixed     5m/5
+    groceries                    382.69       370.17     101.74      99.66 d17 variable  7m/7
+    gym                           61.00        61.00      61.00      61.00 d10 fixed     5m/5
+    music_subscription            29.00        29.00      29.00      29.00 d11 fixed     5m/5
+    rent                         622.60       622.60     622.60     622.60 d 2 fixed     6m/6
+    transport                    180.60       166.49      45.37      44.83 d17 variable  7m/7
+    utilities                    143.70       143.66     143.70     143.66 d 6 fixed     6m/6
+  hypotheses: H1(medTot+sal)=803.42  H2(perEvent)=1346.72  H3(meanTot+sal)=860.36  H5(naive)=1489.52  |  expected=433.40
+====================================================================================================
+request_14  type=debt_repayment  requested=5414.2  date=2025-08-04  deadline=2025-10-04  partial=True
+  balance=3931.74  keep=2200.00  naive_headroom=1731.74
+  ours=779.48  expected=597.74  diff=+181.74
+  ours_trough=2979.48  implied_trough=2797.74  ours-implied=+181.74
+  sched 2025-08-15 +     2717.00 salary [scheduled]
+  salary cadence: monthly=2717.00 day=15 strength=fixed months=3 credits_in_window=3
+  cadence table (cat | monthTotal med/mean | perEvent med/mean | day | strength | events):
+    cloud_storage                 14.00        14.00      14.00      14.00 d13 fixed     5m/5
+    debt_repayment               350.00       350.00     350.00     350.00 d12 fixed     5m/5
+    family_support               226.00       226.00     226.00     226.00 d14 fixed     5m/5
+    groceries                    398.95       389.25     101.15     104.80 d16 variable  7m/7
+    healthcare                    92.08        91.90      92.08      91.90 d11 fixed     5m/5
+    rent                         688.60       688.60     688.60     688.60 d 3 fixed     6m/6
+    shopping                     123.77       129.47     123.77     129.47 d13 fixed     5m/5
+    transport                    107.78       110.64      52.26      51.06 d16 variable  6m/6
+    utilities                    146.41       148.22     146.41     148.22 d 7 fixed     5m/5
+  hypotheses: H1(medTot+sal)=779.48  H2(perEvent)=779.48  H3(meanTot+sal)=772.15  H5(naive)=1731.74  |  expected=597.74
+====================================================================================================
+request_15  type=investment  requested=3685.0  date=2026-01-06  deadline=2026-02-01  partial=False
+  balance=1770.05  keep=1200.00  naive_headroom=570.05
+  ours=230.14  expected=83.05  diff=+147.09
+  ours_trough=1430.14  implied_trough=1283.05  ours-implied=+147.09
+  sched 2026-01-15 +     1661.00 salary [scheduled]
+  salary cadence: monthly=1661.00 day=15 strength=variable months=2 credits_in_window=3
+  cadence table (cat | monthTotal med/mean | perEvent med/mean | day | strength | events):
+    debt_repayment                84.00        84.00      84.00      84.00 d13 fixed     5m/5
+    delivery_membership           27.00        27.00      27.00      27.00 d15 fixed     5m/5
+    dining                        89.81        88.48      38.56      40.84 d15 variable  6m/6
+    education                    159.00       159.00     159.00     159.00 d10 fixed     5m/5
+    groceries                    249.27       250.45      62.21      60.11 d16 variable  6m/6
+    music_subscription            11.00        11.00      11.00      11.00 d13 fixed     5m/5
+    rent                         435.60       435.60     435.60     435.60 d 4 fixed     6m/6
+    transport                    138.80       132.32      30.31      31.76 d17 variable  6m/6
+    utilities                     85.91        86.39      85.91      86.39 d 8 fixed     5m/5
+  hypotheses: H1(medTot+sal)=230.14  H2(perEvent)=230.14  H3(meanTot+sal)=229.66  H5(naive)=570.05  |  expected=83.05
+====================================================================================================
+request_16  type=housing  requested=122500.0  date=2023-08-12  deadline=2023-10-11  partial=True
+  balance=362370.00  keep=122400.00  naive_headroom=239970.00
+  ours=122500.00  expected=122500.0  diff=+0.00
+  ours_trough=283372.14  implied_trough=244900.00  ours-implied=+38472.14
+  sched 2023-08-16 -   100000.00 rent [scheduled]
+  salary cadence: monthly=173000.00 day=15 strength=fixed months=5 credits_in_window=3
+  cadence table (cat | monthTotal med/mean | perEvent med/mean | day | strength | events):
+    cloud_storage               1055.00      1055.00    1055.00    1055.00 d11 fixed     6m/6
+    debt_repayment             17750.00     17750.00   17750.00   17750.00 d10 fixed     6m/6
+    dining                     10189.99      9847.16    5461.61    5302.32 d17 variable  7m/7
+    groceries                  27110.18     26225.20    6971.09    7060.63 d15 variable  7m/7
+    rent                       57100.00     57100.00   57100.00   57100.00 d 1 fixed     6m/6
+    shopping                    9307.32      9179.84    9307.32    9179.84 d11 fixed     6m/6
+    streaming                   3510.00      3510.00    3510.00    3510.00 d 8 fixed     6m/6
+    transport                  18870.64     16414.96    4483.65    4419.41 d16 variable  7m/7
+    utilities                  10586.37     10407.43   10586.37   10407.43 d 5 fixed     6m/6
+  hypotheses: H1(medTot+sal)=239970.00  H2(perEvent)=239970.00  H3(meanTot+sal)=239970.00  H5(naive)=239970.00  |  expected=122500.00
+====================================================================================================
+request_17  type=emergency_expense  requested=274600.0  date=2026-03-01  deadline=2026-05-04  partial=False
+  balance=550379.58  keep=166100.00  naive_headroom=384279.58
+  ours=274600.00  expected=243849.58  diff=+30750.42
+  ours_trough=443658.81  implied_trough=409949.58  ours-implied=+33709.23
+  sched 2026-03-15 +   206000.00 salary [scheduled]
+  salary cadence: monthly=206000.00 day=15 strength=fixed months=5 credits_in_window=3
+  cadence table (cat | monthTotal med/mean | perEvent med/mean | day | strength | events):
+    debt_repayment             30200.00     30200.00   30200.00   30200.00 d11 fixed     5m/5
+    delivery_membership         1675.00      1675.00    1675.00    1675.00 d13 fixed     5m/5
+    dining                     12051.67     12518.30    5641.06    5777.68 d16 variable  6m/6
+    education                  13660.00     13660.00   13660.00   13660.00 d 8 fixed     5m/5
+    groceries                  41434.67     46297.69    8716.51   10288.38 d17 variable  6m/6
+    music_subscription          2055.00      2055.00    2055.00    2055.00 d11 fixed     5m/5
+    rent                       49600.00     49600.00   49600.00   49600.00 d 2 fixed     5m/5
+    transport                  21479.00     22871.51    5421.55    5278.04 d17 variable  6m/6
+    utilities                   9530.77      9538.75    9530.77    9538.75 d 6 fixed     5m/5
+  hypotheses: H1(medTot+sal)=277558.81  H2(perEvent)=277558.81  H3(meanTot+sal)=277550.83  H5(naive)=384279.58  |  expected=243849.58
+====================================================================================================
+request_18  type=other  requested=3246.1  date=2026-07-07  deadline=2026-09-15  partial=False
+  balance=2486.00  keep=1400.00  naive_headroom=1086.00
+  ours=288.15  expected=462.0  diff=-173.85
+  ours_trough=1688.15  implied_trough=1862.00  ours-implied=-173.85
+  salary cadence: monthly=2310.00 day=15 strength=fixed months=5 credits_in_window=3
+  cadence table (cat | monthTotal med/mean | perEvent med/mean | day | strength | events):
+    dining                       170.57       159.04      82.67      85.63 d14 variable  7m/7
+    groceries                    280.82       240.23      96.63      93.42 d12 variable  7m/7
+    healthcare                   152.41       155.41     152.41     155.41 d11 fixed     5m/5
+    housing                      167.00       167.00     167.00     167.00 d 4 fixed     6m/6
+    insurance                     68.00        68.00      68.00      68.00 d 8 fixed     5m/5
+    streaming                     68.00        68.00      68.00      68.00 d10 fixed     5m/5
+    transport                     91.49        95.01      43.81      43.85 d16 variable  6m/6
+    utilities                    107.43       111.27     107.43     111.27 d 7 fixed     5m/5
+  hypotheses: H1(medTot+sal)=238.77  H2(perEvent)=510.86  H3(meanTot+sal)=284.06  H5(naive)=1086.00  |  expected=462.00
+====================================================================================================
+request_19  type=purchase  requested=39660.0  date=2024-09-04  deadline=2024-10-04  partial=True
+  balance=199545.00  keep=92800.00  naive_headroom=106745.00
+  ours=37951.96  expected=28820.0  diff=+9131.96
+  ours_trough=130751.96  implied_trough=121620.00  ours-implied=+9131.96
+  salary cadence: monthly=131000.00 day=15 strength=fixed months=5 credits_in_window=3
+  cadence table (cat | monthTotal med/mean | perEvent med/mean | day | strength | events):
+    cloud_storage                395.00       395.00     395.00     395.00 d14 fixed     5m/5
+    debt_repayment             11850.00     11850.00   11850.00   11850.00 d13 fixed     5m/5
+    family_support             12650.00     12650.00   12650.00   12650.00 d15 fixed     5m/5
+    groceries                  19369.23     17453.51    4744.13    4699.02 d17 variable  7m/7
+    healthcare                  8645.36      8808.57    8645.36    8808.57 d12 fixed     5m/5
+    rent                       36100.00     36100.00   36100.00   36100.00 d 4 fixed     5m/5
+    shopping                    5772.78      5833.87    5772.78    5833.87 d14 fixed     5m/5
+    transport                   6902.40      6673.62    3054.24    3080.13 d15 variable  6m/6
+    utilities                   6029.90      5955.64    6029.90    5955.64 d 8 fixed     5m/5
+  hypotheses: H1(medTot+sal)=37951.96  H2(perEvent)=37951.96  H3(meanTot+sal)=37801.92  H5(naive)=106745.00  |  expected=28820.00
+====================================================================================================
+request_20  type=travel  requested=303700.0  date=2026-02-07  deadline=2026-02-22  partial=False
+  balance=102609.05  keep=64500.00  naive_headroom=38109.05
+  ours=2713.17  expected=5400.0  diff=-2686.83
+  ours_trough=67213.17  implied_trough=69900.00  ours-implied=-2686.83
+  sched 2026-02-08 -     4470.00 shopping [pending]
+  sched 2026-02-09 -     2026.00 utilities [pending]
+  sched 2026-02-14 +     8640.00 shopping [pending]
+  salary cadence: monthly=108000.00 day=15 strength=fixed months=5 credits_in_window=3
+  cadence table (cat | monthTotal med/mean | perEvent med/mean | day | strength | events):
+    cloud_storage                365.00       365.00     365.00     365.00 d11 fixed     5m/5
+    dining                      6440.69      5135.69    3352.75    3423.79 d17 variable  6m/6
+    education                   8740.00      8740.00    8740.00    8740.00 d 7 fixed     5m/5
+    entertainment               2115.92      2148.27    2115.92    2148.27 d13 fixed     5m/5
+    groceries                  11581.72     11101.58    3724.49    3700.53 d13 variable  6m/6
+    healthcare                  6505.49      6336.85    6505.49    6336.85 d 9 fixed     5m/5
+    housing                     7950.00      7950.00    7950.00    7950.00 d 2 fixed     6m/6
+    insurance                   3290.00      3290.00    3290.00    3290.00 d 6 fixed     6m/6
+    transport                   5465.70      5795.13    2632.00    2674.67 d15 variable  6m/6
+    utilities                   7784.29      7665.16    7784.29    7665.16 d 5 fixed     6m/6
+  hypotheses: H1(medTot+sal)=8800.92  H2(perEvent)=16658.15  H3(meanTot+sal)=9417.35  H5(naive)=38109.05  |  expected=5400.00
+====================================================================================================
+request_21  type=education  requested=1574.4  date=2026-04-03  deadline=2026-04-14  partial=False
+  balance=3911.35  keep=1800.00  naive_headroom=2111.35
+  ours=1570.05  expected=1543.35  diff=+26.70
+  ours_trough=3370.05  implied_trough=3343.35  ours-implied=+26.70
+  sched 2026-04-05 -       53.00 transport [pending]
+  sched 2026-04-15 +     2256.00 salary [scheduled]
+  salary cadence: monthly=2256.00 day=15 strength=fixed months=5 credits_in_window=3
+  cadence table (cat | monthTotal med/mean | perEvent med/mean | day | strength | events):
+    cloud_storage                 11.00        11.00      11.00      11.00 d12 fixed     5m/5
+    dining                       150.71       125.15      85.96      83.44 d13 variable  6m/6
+    groceries                    258.10       250.88      84.70      83.63 d17 variable  6m/6
+    rent                         718.80       718.80     718.80     718.80 d 2 fixed     6m/6
+    shopping                     120.74       122.41     120.74     122.41 d12 fixed     5m/5
+    streaming                     47.00        47.00      47.00      47.00 d 9 fixed     5m/5
+    transport                     74.04        61.80      38.96      41.20 d12 variable  6m/6
+    utilities                    122.18       121.18     122.18     121.18 d 6 fixed     5m/5
+  hypotheses: H1(medTot+sal)=1585.68  H2(perEvent)=1685.51  H3(meanTot+sal)=1622.80  H5(naive)=2111.35  |  expected=1543.35
+====================================================================================================
+request_22  type=family_transfer  requested=731.5  date=2024-12-05  deadline=2025-02-10  partial=True
+  balance=1132.46  keep=500.00  naive_headroom=632.46
+  ours=529.94  expected=475.46  diff=+54.48
+  ours_trough=1029.94  implied_trough=975.46  ours-implied=+54.48
+  sched 2024-12-08 -       43.00 shopping [pending]
+  salary cadence: monthly=616.00 day=15 strength=fixed months=5 credits_in_window=3
+  cadence table (cat | monthTotal med/mean | perEvent med/mean | day | strength | events):
+    delivery_membership            5.00         5.00       5.00       5.00 d14 fixed     5m/5
+    dining                        33.69        34.82      15.84      16.07 d15 variable  6m/6
+    entertainment                 20.43        20.87      20.43      20.87 d15 fixed     5m/5
+    groceries                     88.29        88.97      23.84      23.95 d17 variable  7m/7
+    gym                           17.00        17.00      17.00      17.00 d11 fixed     5m/5
+    music_subscription             6.00         6.00       6.00       6.00 d12 fixed     5m/5
+    rent                         178.20       178.20     178.20     178.20 d 3 fixed     6m/6
+    transport                     55.27        54.72      12.70      13.13 d17 variable  6m/6
+    utilities                     31.52        30.56      31.52      30.56 d 7 fixed     5m/5
+  hypotheses: H1(medTot+sal)=572.94  H2(perEvent)=572.94  H3(meanTot+sal)=573.90  H5(naive)=632.46  |  expected=475.46
+====================================================================================================
+request_23  type=debt_repayment  requested=38016.0  date=2025-05-07  deadline=2025-07-15  partial=False
+  balance=51957.90  keep=27000.00  naive_headroom=24957.90
+  ours=10156.44  expected=9152.0  diff=+1004.44
+  ours_trough=37156.44  implied_trough=36152.00  ours-implied=+1004.44
+  sched 2025-05-11 -     1553.20 healthcare [pending]
+  salary cadence: monthly=45760.00 day=15 strength=fixed months=5 credits_in_window=3
+  cadence table (cat | monthTotal med/mean | perEvent med/mean | day | strength | events):
+    cloud_storage                295.90       295.90     295.90     295.90 d14 fixed     5m/5
+    debt_repayment              5852.00      5852.00    5852.00    5852.00 d13 fixed     5m/5
+    family_support              4270.20      4270.20    4270.20    4270.20 d15 fixed     5m/5
+    groceries                   7382.85      7218.65    1706.85    1732.48 d16 variable  6m/6
+    healthcare                  1341.05      1361.55    1341.05    1361.55 d12 fixed     5m/5
+    rent                       15312.00     15312.00   15312.00   15312.00 d 4 fixed     6m/6
+    shopping                    1281.33      1315.73    1281.33    1315.73 d14 fixed     5m/5
+    transport                   1800.57      1649.95     896.02     888.44 d14 variable  7m/7
+    utilities                   2813.94      2754.39    2813.94    2754.39 d 8 fixed     5m/5
+  hypotheses: H1(medTot+sal)=11573.11  H2(perEvent)=12477.66  H3(meanTot+sal)=11728.38  H5(naive)=24957.90  |  expected=9152.00
+====================================================================================================
+request_24  type=investment  requested=109600.0  date=2026-01-04  deadline=2026-02-08  partial=True
+  balance=85045.00  keep=51000.00  naive_headroom=34045.00
+  ours=20403.44  expected=13420.0  diff=+6983.44
+  ours_trough=71403.44  implied_trough=64420.00  ours-implied=+6983.44
+  sched 2026-01-11 -     1830.00 insurance [scheduled]
+  salary cadence: monthly=61000.00 day=15 strength=fixed months=5 credits_in_window=3
+  cadence table (cat | monthTotal med/mean | perEvent med/mean | day | strength | events):
+    cloud_storage                355.00       355.00     355.00     355.00 d11 fixed     5m/5
+    dining                      8090.06      6886.42    1911.68    1854.04 d16 variable  7m/7
+    entertainment               1896.25      1930.70    1896.25    1930.70 d13 fixed     5m/5
+    groceries                   7148.56      6871.30    2260.73    2290.43 d18 variable  6m/6
+    insurance                   2510.00      2510.00    2510.00    2510.00 d 6 fixed     5m/5
+    rent                       18600.00     18600.00   18600.00   18600.00 d 1 fixed     6m/6
+    shopping                    2514.90      2513.65    2514.90    2513.65 d11 fixed     5m/5
+    streaming                   1200.00      1200.00    1200.00    1200.00 d 8 fixed     5m/5
+    transport                   7849.81      6989.10    1341.45    1358.99 d18 variable  7m/7
+    utilities                   3335.41      3303.91    3335.41    3303.91 d 5 fixed     5m/5
+  hypotheses: H1(medTot+sal)=22233.44  H2(perEvent)=22233.44  H3(meanTot+sal)=22231.74  H5(naive)=34045.00  |  expected=13420.00
+====================================================================================================
+request_25  type=housing  requested=60496000.0  date=2024-03-06  deadline=2024-04-17  partial=True
+  balance=32063050.00  keep=23379100.00  naive_headroom=8683950.00
+  ours=4234206.47  expected=1425000.0  diff=+2809206.47
+  ours_trough=27613306.47  implied_trough=24804100.00  ours-implied=+2809206.47
+  sched 2024-03-15 + 28499994.00 salary [scheduled]
+  salary cadence: monthly=28499994.00 day=15 strength=fixed months=5 credits_in_window=3
+  cadence table (cat | monthTotal med/mean | perEvent med/mean | day | strength | events):
+    cloud_storage             126350.00    126350.00  126350.00  126350.00 d12 fixed     5m/5
+    dining                   4353123.74   4311155.78 1051249.87 1034677.39 d17 variable  6m/6
+    entertainment             451681.59    459592.42  451681.59  459592.42 d14 fixed     5m/5
+    groceries                3706120.37   3597524.38 1252001.65 1199174.79 d20 variable  6m/6
+    insurance                 904400.00    904400.00  904400.00  904400.00 d 7 fixed     5m/5
+    rent                     6954000.00   6954000.00 6954000.00 6954000.00 d 2 fixed     6m/6
+    shopping                 1054608.50   1059028.74 1054608.50 1059028.74 d12 fixed     5m/5
+    streaming                 573800.00    573800.00  573800.00  573800.00 d 9 fixed     5m/5
+    transport                3405201.48   3047200.18  591314.74  592511.15 d16 variable  7m/7
+    utilities                1338903.44   1323654.72 1338903.44 1323654.72 d 6 fixed     5m/5
+  hypotheses: H1(medTot+sal)=4234206.47  H2(perEvent)=4234206.47  H3(meanTot+sal)=4237124.12  H5(naive)=8683950.00  |  expected=1425000.00

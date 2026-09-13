@@ -63,7 +63,7 @@ Requests scored: 25
 - amount: ours=851.0395238095248 exp=433.4
 - plan: ours=2024-03-07:941.60 exp=2024-05-15:941.60
 - earliest: ours= exp=2024-05-15
-- changes: ours=reduce_to:event_1092:30.50 exp=none
+- changes: ours=stop:event_1090|stop:event_1091 exp=none
 
 ### request_14
 - amount: ours=779.48 exp=597.74
@@ -87,7 +87,7 @@ Requests scored: 25
 
 ### request_21
 - amount: ours=1570.0500000000002 exp=1543.35
-- changes: ours=reduce_to:event_1854:41 exp=stop:event_1815|reduce_to:event_1816:23.50
+- changes: ours=stop:event_1815 exp=stop:event_1815|reduce_to:event_1816:23.50
 
 ### request_22
 - amount: ours=529.94 exp=475.46
