@@ -55,6 +55,14 @@ def process_request(ds: DataStore, fx: FxGraph, request) -> RequestResult:
     )
 
     # P3: untrusted-data interpreters -> fixed-shape facts.
+    # Images get the linked event as semantic context (net vs gross,
+    # balance-due vs total) so the right amount is selected.
+    from code.interpret.image_interpreter import set_event_context
+
+    set_event_context({
+        e.event_id: {"description": e.description or "", "category": e.category or ""}
+        for e in state.events
+    })
     facts = [interpret_message(m, request_id=rid) for m in state.messages]
     facts += [interpret_image(i, request_id=rid) for i in state.image_links]
     trace.append(f"facts: {len(facts)} extracted (messages+images)")

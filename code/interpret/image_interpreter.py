@@ -139,6 +139,47 @@ def _save_ocr_cache(cache: dict) -> None:
         pass
 
 
+# Event-context providers, set once by the orchestrator so the image
+# interpreter can pick the semantically relevant amount (net vs gross,
+# balance-due vs total) without importing data-layer modules.
+_EVENT_CONTEXT: dict[str, dict] = {}
+_CSV_CONTEXT: dict[str, dict] | None = None
+
+
+def set_event_context(context: dict[str, dict]) -> None:
+    """Register {event_id -> {description, category}} for linked events."""
+    global _EVENT_CONTEXT
+    _EVENT_CONTEXT = dict(context)
+
+
+def _event_context_for(event_id: str) -> dict:
+    """Context for one event: orchestrator-registered map, else the CSV row.
+
+    The fallback reads description/category straight from
+    financial_events.csv once and caches it, so standalone callers
+    (tests, scorecard, diagnostics) get the same semantic selection as
+    the full pipeline without constructing a DataStore.
+    """
+    if event_id in _EVENT_CONTEXT:
+        return _EVENT_CONTEXT[event_id]
+    global _CSV_CONTEXT
+    if _CSV_CONTEXT is None:
+        _CSV_CONTEXT = {}
+        try:
+            from code.config import CSV_EVENTS
+            import csv
+
+            with open(CSV_EVENTS, encoding="utf-8", newline="") as fh:
+                for row in csv.DictReader(fh):
+                    _CSV_CONTEXT[row["event_id"]] = {
+                        "description": row.get("description") or "",
+                        "category": row.get("category") or "",
+                    }
+        except Exception:  # noqa: BLE001 — context is an aid, never a gate
+            _CSV_CONTEXT = {}
+    return _CSV_CONTEXT.get(event_id, {})
+
+
 def interpret_image(
     image_link: ImageLink,
     *,
@@ -200,14 +241,28 @@ def interpret_image(
         fact["note"] = "OCR produced no text"
         return fact
 
-    return {**fact, **_extract_facts(text)}
+    # Semantic selection uses the LINKED EVENT as context (net vs gross,
+    # balance-due vs total). Falls back to the event's CSV row so
+    # standalone callers get identical selection to the full pipeline.
+    ctx = _event_context_for(image_link.related_event_id)
+    extracted = _extract_facts(
+        text,
+        event_description=ctx.get("description", ""),
+        event_category=ctx.get("category", ""),
+    )
+    extracted.setdefault("candidates", [])
+    return {**fact, **extracted}
 
 
-def _extract_facts(text: str) -> dict[str, Any]:
-    """Delegate to ocr_extract (marker-aware, multi-format)."""
-    from code.interpret.ocr_extract import extract_facts
+def _extract_facts(
+    text: str,
+    event_description: str = "",
+    event_category: str = "",
+) -> dict[str, Any]:
+    """Delegate to ocr_extract (semantic, event-context-aware)."""
+    from code.interpret.ocr_extract import extract_facts_v2
 
-    return extract_facts(text)
+    return extract_facts_v2(text, event_description, event_category)
 
 
 # ---------------------------------------------------------------------------

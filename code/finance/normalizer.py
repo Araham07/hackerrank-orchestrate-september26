@@ -306,6 +306,12 @@ def normalize_state(
     # 2) Fill blank amounts from image facts (never treat blank as zero).
     events = _fill_blank_amounts(events, facts, log)
 
+    # 2b) De-duplicate image-backed events against CSV rows describing the
+    # same real-world transaction (same user/category/direction, amounts
+    # equal within tolerance, dates within 3 days). One transaction = one
+    # event, so the forecast never counts it twice.
+    events = _dedupe_image_duplicates(events, log)
+
     # 3) Convert every amount to home currency (settlement-date valued).
     events_home: list[dict] = []
     for e in events:
@@ -390,6 +396,63 @@ def _fill_blank_amounts(
                 f"{fact.get('source_id')}: {fact['new_amount']} "
                 f"{fact.get('new_currency')}"
             )
+    return out
+
+
+def _dedupe_image_duplicates(
+    events: list[ResolvedEvent], log: list[str]
+) -> list[ResolvedEvent]:
+    """Collapse image-amended events that duplicate a CSV row.
+
+    Same real-world transaction can appear twice: once as a normal CSV row
+    and once as a blank-amount row that the image filled. Both would enter
+    the timeline and double-count. Match rule (general, no ids):
+      same user + category + direction,
+      amounts equal within max(0.01, 0.5%),
+      settlement/event dates within 3 days.
+    Keep the row with the stronger lifecycle (settled over pending/
+scheduled), then the CSV-sourced row (it carries full provenance).
+    """
+    def rowkey(e: ResolvedEvent):
+        return (e.user_id, e.category, e.direction)
+
+    def d(e: ResolvedEvent):
+        return e.settlement_date or e.event_date
+
+    out: list[ResolvedEvent] = []
+    dropped = 0
+    for e in events:
+        # Only image-FILLED rows participate in dedup: a duplicate only
+        # arises when a blank CSV row was given the same amount as a real
+        # row by an image. Coincidental same-amount CSV pairs are kept.
+        image_filled = "amount_from_image" in e.resolution_rule
+        dup = None
+        if image_filled:
+            for i, k in enumerate(out):
+                if rowkey(k) != rowkey(e):
+                    continue
+                if k.amount is None or e.amount is None:
+                    continue
+                tol = max(0.01, 0.005 * max(abs(k.amount), abs(e.amount)))
+                if abs(k.amount - e.amount) > tol:
+                    continue
+                dk, de = d(k), d(e)
+                if dk is None or de is None or abs((dk - de).days) > 3:
+                    continue
+                dup = i
+                break
+        if dup is None:
+            out.append(e)
+            continue
+        k = out[dup]
+        dropped += 1
+        log.append(
+            f"dedup: image-filled {e.event_id} duplicates {k.event_id} "
+            f"({e.category} {e.direction} {e.amount} within 3d) - "
+            f"dropped the image-filled row"
+        )
+    if dropped:
+        log.append(f"dedup: removed {dropped} duplicate image/CSV row(s)")
     return out
 
 

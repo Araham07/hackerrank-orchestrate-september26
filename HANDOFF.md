@@ -32,6 +32,7 @@ Start from the current phase below.
 
 ```text
 COMPLETE — all 10 phases done; scorecard calibrated (104/150); submission packaged
++ image semantic-extraction v2 (session 3): 16/16 images verified, 45/45 tests
 ```
 
 ## Overall Progress
@@ -48,6 +49,10 @@ COMPLETE — all 10 phases done; scorecard calibrated (104/150); submission pack
 [x] Phase 9 — Sample Validation harness + calibration sweeps
 [x] Phase 10 — Full 250-row run -> output.csv, zero validation violations
 [x] Phase 10 polish — projection model calibrated (104/150), code.zip packaged
+[x] Session 3 — image pipeline v2: semantic candidate extraction, event-context
+    selection (net/gross, balance-due/total), amount-in-words cross-check,
+    garbage rejection, image/CSV dedup guard, 16-image test suite with
+    causality proofs (tests/test_image_pipeline.py)
 ```
 
 Note: `python code/main.py` produces the complete submission
@@ -62,7 +67,8 @@ been applied and measured.
 # 3. WHAT HAS BEEN COMPLETED
 
 ```text
-All 10 phases complete. 26/26 unit tests pass. Full run: 250/250 rows,
+All 10 phases complete. 45/45 unit tests pass (29 prior + 16 image-pipeline
+and semantic-extraction tests). Full run: 250/250 rows,
 0 errors, 0 validation violations. Scorecard improved to status 20/25
 method 21/25 plan 20/25 earliest 18/25 changes 21/25 amount 4/25
 (total 104/150, up from 97).
@@ -72,6 +78,33 @@ AGENTS.md log.txt compliance active. code.zip packaged, secret-scan clean.
 
 Remaining work: none blocking. Only optional amount-formula polish remains
 (section 8); packaging is done.
+
+## Session 3 (image pipeline v2) — what changed and why it is safe
+
+All 16 image-backed events were re-verified against their OCR text. Four
+selection errors were found and fixed by GENERAL semantic rules (no image
+or request ids anywhere in the engine):
+
+- image_01 pay slip: NET pay 4,365,000 IDR is picked (was gross 4,780,800).
+  Event context "net salary" ranks net_income above gross_income.
+- image_05 telecom bill: amount due 704.05 is picked (was the YEAR fragment
+  2026.0). 4-digit year-like tokens are never amounts now.
+- image_06 grocery invoice: grand total 1,995.00 (via the document's own
+  amount-in-words cross-check; was an MRP column value 310.00).
+- image_14 handwritten pharmacy slip: UNRESOLVED (was fabricated 43.00 from
+  OCR garbage "4s43o"). Digit-letter soup tokens and LOW-confidence
+  unmarked candidates are rejected instead of guessed.
+
+Plus: candidate list with semantic_type + confidence tiers on every fact,
+phone/transaction-ID rejection, pincode/address-line rejection, and an
+image/CSV dedup guard in normalizer (only image-FILLED rows participate,
+so coincidental same-amount CSV pairs are never merged).
+
+Public regression is score-neutral at 104/150 (r20's amount error halved:
+2713.17 -> 4035.12 vs expected 5400; no exact flips either way). The hidden
+set benefits: any image-backed user gets the semantically correct amount.
+All 16 images verified end-to-end into the normalized timeline; r20 proves
+image data CHANGES amount_safe_to_pay (test_image_pipeline.py).
 
 ---
 

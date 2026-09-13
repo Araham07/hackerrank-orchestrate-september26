@@ -22,6 +22,7 @@ MODULES = [
     "tests.test_phases_1_3",
     "tests.test_phases_4_7",
     "tests.test_spending_changes",
+    "tests.test_image_pipeline",
 ]
 
 
